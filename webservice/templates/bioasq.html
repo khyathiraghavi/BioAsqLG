@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<title>Welcome to BioAsq Summarization Demo</title>
+
+<form action="/" method="post">
+	<input type="submit" name="submit" value="No Expansion">
+	<input type="submit" name="submit" value="UMLS Expansion">
+	<input type="submit" name="submit" value="SNOMEDCT Expansion">
+</form>
+
+<h1>Welcome to BioAsq Summarization Demo </h1>
+<p> Randomly picked question: <br> {{ question }} </p>
+<p> The generated summary: <br> {{ summaryFinal }}</p>
+<p> The corresponding relevant snippets are: <br> {{ snippets }}</p>
+
+</body>
+</html>
