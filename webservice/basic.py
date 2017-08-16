@@ -56,12 +56,13 @@ AuthClient = Authentication(username,password)
 tgt = AuthClient.gettgt()
 uri = "https://uts-ws.nlm.nih.gov"
 
+"""
 #initializing lucene parameters
 lucene.initVM()
 analyzer = StandardAnalyzer()
 reader_first = DirectoryReader.open(SimpleFSDirectory(Paths.get("/home/khyathi/Projects/bioasq/medline17n-lucene1/")))
 searcher = IndexSearcher(reader_first)
-
+"""
 
 #############################################
 
