@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template
+from flask import jsonify, render_template
 import sys
 import json
 import csv
@@ -321,6 +322,12 @@ def readData(NoExpansionFlag, UmlsExpansionFlag, SnomedctExpansionFlag):
 		#exit(1)
 		return (quest, snippetsText, summaryFinal)
 
+#helper function
+def request_wants_json():
+	best = request.accept_mimetypes.best_match(['application/json', 'text/html'])
+	return best == 'application/json' and request.accept_mimetypes[best] > request.accept_mimetypes['text/html']
+
+#http://127.0.0.1:5000/?expansion=UMLS
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	initializeGlobalVariables()
@@ -329,6 +336,7 @@ def index():
 	SnomedctExpansionFlag = False
 	#if UmlsExpansionFlag == False and NoExpansionFlag==False:
 	#	return ("","","")
+	"""
 	if request.method == 'POST':
 		if request.form['submit'] == 'UMLS Expansion':
 			UmlsExpansionFlag = True
@@ -336,10 +344,22 @@ def index():
 			NoExpansionFlag = True
 		elif request.form['submit'] == 'SNOMEDCT Expansion':
 			SnomedctExpansionFlag = True
-
+	"""
+	expansionType = request.args.get('expansion')
+	if expansionType == "UMLS":
+		UmlsExpansionFlag = True
+	elif expansionType == "SNOMEDCT":
+		SnomedctExpansionFlag = True
+	else:
+		NoExpansionFlag = True
 	question, snippets, summaryFinal = readData(NoExpansionFlag, UmlsExpansionFlag, SnomedctExpansionFlag)
+	if request_wants_json():
+		#summaryFinal = ["1","2"]
+		#return jsonify(summaryFinal=[x.to_json() for x in summaryFinal])
+		return jsonify(question = question, snippets = snippets, summaryFinal = summaryFinal)
 	return render_template("bioasq.html", question = question, snippets = snippets, summaryFinal = summaryFinal)
 	#return 'Welcome to the homepage of bioasq'
+
 
 @app.route('/load', methods=['GET', 'POST'])
 def load():
