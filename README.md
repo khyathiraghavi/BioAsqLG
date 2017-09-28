@@ -8,3 +8,18 @@ There are about 18 different configurations from 3 3 modules of our system.
 Currently the code has clustering algorithm with 3 choices of No expansion/ UMLS expansion/ SNOMEDCT expansion.
 Will add the MMR code with soft and hard constraints.
 System requirements include: pymedtermino, nltk, sklearn, flask.
+
+
+Example URL that has to be launched:
+http://127.0.0.1:5000/?expansion=UMLS&algorithm=Soft
+
+Choices for expansion:
+UMLS
+SNOMEDCT
+
+
+Choices for algorithm:
+Soft
+Hard
+MMR
+Clustering
